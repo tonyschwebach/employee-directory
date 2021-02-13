@@ -1,0 +1,10 @@
+.hero {
+  background-color: rgb(6, 6, 63);
+  border-bottom: solid rgb(175, 11, 11) 4px;
+}
+.title {
+  color: white;
+}
+.subtitle {
+  color: white;
+}
