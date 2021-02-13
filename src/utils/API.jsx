@@ -1,1 +1,0 @@
-// make api call to randomuser.me to return a list of employees
