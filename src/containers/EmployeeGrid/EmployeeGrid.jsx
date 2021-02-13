@@ -1,7 +1,9 @@
 // onClick for table headings to setState of sortBy
 
 import React, { Component } from "react";
+import Employee from "../../components/Employee/Employee";
 import API from "../../utils/API";
+
 
 class EmployeeGrid extends Component {
   // rcc component state for list of employees, sortBy, searchTerm
@@ -36,13 +38,7 @@ class EmployeeGrid extends Component {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td><img alt="employee picture of name" src=""/></td>
-              <td>Johnny Rose</td>
-              <td>555-123-4567</td>
-              <td>johnny@rosebud.com</td>
-              <td>1/1/1900</td>
-            </tr>
+            <Employee />
           </tbody>
         </table>
       </div>
