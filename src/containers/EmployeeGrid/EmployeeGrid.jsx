@@ -4,7 +4,6 @@ import React, { Component } from "react";
 import Employee from "../../components/Employee/Employee";
 import API from "../../utils/API";
 
-
 class EmployeeGrid extends Component {
   // rcc component state for list of employees, sortBy, searchTerm
   state = { employees: "", sortBy: "", searchTerm: "" };
@@ -14,7 +13,7 @@ class EmployeeGrid extends Component {
     API.getEmployees(numberOfEmployees)
       .then((res) => {
         this.setState({ employees: res.data.results });
-        console.log(this.state.employees);
+        // console.log(this.state.employees);
       })
       .catch((err) => {
         console.log(err);
@@ -25,7 +24,7 @@ class EmployeeGrid extends Component {
 
   render() {
     return (
-      <div className="container mt-6">
+      <div className="container mt-6 px-6">
         {/* render table and table headings */}
         <table className="table is-striped is-narrow is-hoverable is-fullwidth">
           <thead>
@@ -37,8 +36,20 @@ class EmployeeGrid extends Component {
               <th>DOB</th>
             </tr>
           </thead>
+
+          {/* TODO: make table headings always viewable */}
           <tbody>
-            <Employee />
+            {this.state.employees
+              ? this.state.employees.map((employee) => (
+                  <Employee
+                    picture={employee.picture.thumbnail}
+                    name={`${employee.name.first} ${employee.name.last}`}
+                    phone={employee.phone}
+                    email={employee.email}
+                    dob={employee.dob.date}
+                  />
+                ))
+              : console.log("no employees yet")}
           </tbody>
         </table>
       </div>

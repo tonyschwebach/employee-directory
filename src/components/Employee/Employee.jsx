@@ -1,19 +1,20 @@
 // rsc component
-// deconstruct props for image, name, phone, email, and DOB
-// render table row with table table data for each field
 
+import moment from "moment";
 import React from "react";
 
-const Employee = () => {
+// deconstruct props for image, name, phone, email, and DOB
+const Employee = ({ id, picture, name, phone, email, dob }) => {
   return (
+    // render table row with table table data for each field
     <tr>
       <td>
-        <img alt="employee picture of name" src="" />
+        <img alt={`employee picture of ${name}`} src={picture} />
       </td>
-      <td>Johnny Rose</td>
-      <td>555-123-4567</td>
-      <td>johnny@rosebud.com</td>
-      <td>1/1/1900</td>
+      <td>{name}</td>
+      <td>{phone}</td>
+      <td>{email}</td>
+      <td>{moment(dob).format("M/D/YYYY")}</td>
     </tr>
   );
 };
