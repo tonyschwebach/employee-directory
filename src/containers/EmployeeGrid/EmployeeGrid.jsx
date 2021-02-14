@@ -4,9 +4,11 @@ import "./EmployeeGrid.css";
 
 const EmployeeGrid = (props) => {
   return (
+
 //  {/* render table and table headings */}
         <table className="table is-striped is-narrow is-hoverable is-fullwidth">
           <thead>
+            {console.log(props)}
             <tr>
               <th>Picture</th>
               <th>Name</th>

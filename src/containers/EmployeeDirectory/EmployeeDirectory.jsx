@@ -9,7 +9,7 @@ import "./EmployeeDirectory.css";
 
 class EmployeeDirectory extends Component {
   // rcc component state for list of employees, sortBy, searchTerm
-  state = { employees: [], sortBy: "", searchTerm: "", employeesToDisplay: [] };
+  state = { employees: [], sortBy: "", searchTerm: "" };
 
   // componentDidMount renders grid
   componentDidMount() {
@@ -18,8 +18,6 @@ class EmployeeDirectory extends Component {
       .then((res) => {
         // set an unchanging list of employees
         this.setState({ employees: res.data.results });
-        // set the array of employees to display equal to the complete list
-        this.setState({ employeesToDisplay: this.state.employees });
       })
       .catch((err) => {
         console.log(err);
@@ -42,20 +40,23 @@ class EmployeeDirectory extends Component {
     event.preventDefault();
   };
 
-  filterEmployees = (searchTerm) => {
-    // use the static employeesArray to filter a new array of employees to display  based on the search term. Render the table rows from filtered Array
+  filterEmployees = () => {
     // Filter this.state.employees for employess without a name, email, or phone number containing the search term
-    console.log(searchTerm);
-    const filteredEmployees = this.state.employees.filter((employee) => {
-      employee.name.first.includes(searchTerm);
-      // employee.name.last.includes(searchTerm) ||
-      // employee.email.includes(searchTerm) ||
-      // employee.phone.includes(searchTerm);
+
+    let filteredEmployees = this.state.employees.filter((employee) => {
+      return (
+        employee.name.first
+          .toLowerCase()
+          .includes(this.state.searchTerm.toLowerCase()) ||
+        employee.name.last
+          .toLowerCase()
+          .includes(this.state.searchTerm.toLowerCase()) ||
+        employee.email.includes(this.state.searchTerm.toLowerCase()) ||
+        employee.phone.includes(this.state.searchTerm)
+      );
     });
-    // Set this.state.employeesToDisplay to equal to the new employees array
-    console.log(this.state.employeesToDisplay);
-    this.setState({ employeesToDisplay: filteredEmployees });
-    console.log("test filter" + searchTerm + this.state.searchTerm);
+
+    return filteredEmployees;
   };
 
   // sort by name
@@ -75,8 +76,8 @@ class EmployeeDirectory extends Component {
           handleInputChange={this.handleInputChange}
           handleFormSubmit={this.handleFormSubmit}
         />
-
-        <EmployeeGrid employeesToDisplay={this.state.employeesToDisplay} />
+        {/* pass result of the filteredEmployees function as a prop to the employee grid component  */}
+        <EmployeeGrid employeesToDisplay={this.filterEmployees()} />
       </div>
     );
   }
