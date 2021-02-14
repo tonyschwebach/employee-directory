@@ -12,17 +12,17 @@ class EmployeeDirectory extends Component {
   state = { employees: [], sortBy: "", searchTerm: "" };
 
   // componentDidMount renders grid
-  componentDidMount() {
-    const numberOfEmployees = 20; //else .getEmployees defaults to 50
-    API.getEmployees(numberOfEmployees)
-      .then((res) => {
-        // set an unchanging list of employees
-        this.setState({ employees: res.data.results });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+  // componentDidMount() {
+  //   const numberOfEmployees = 20; //else .getEmployees defaults to 50
+  //   API.getEmployees(numberOfEmployees)
+  //     .then((res) => {
+  //       // set an unchanging list of employees
+  //       this.setState({ employees: res.data.results });
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }
 
   // handle input change of search bar
   handleInputChange = (event) => {
@@ -32,17 +32,14 @@ class EmployeeDirectory extends Component {
     this.setState({
       [name]: value,
     });
-
-    this.filterEmployees(this.state.searchTerm);
   };
   // handle search form submit search bar
   handleFormSubmit = (event) => {
     event.preventDefault();
   };
 
+      // Filter this.state.employees for employess without a name, email, or phone number containing the search term
   filterEmployees = () => {
-    // Filter this.state.employees for employess without a name, email, or phone number containing the search term
-
     let filteredEmployees = this.state.employees.filter((employee) => {
       return (
         employee.name.first
@@ -60,13 +57,11 @@ class EmployeeDirectory extends Component {
   };
 
   // sort by name
+  /* sort asc or desc based on state.sortBy */
   compareName = (a, b) => {
     return a - b;
   };
 
-  /* filter on state.searchTerm (do not filter imageURL) */
-
-  /* sort asc or desc based on state.sortBy */
 
   render() {
     return (
