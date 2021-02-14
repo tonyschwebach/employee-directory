@@ -5,12 +5,15 @@
 // no onSubmit in example
 // render search box
 
-import React from 'react';
+import React from "react";
 import "./Search.css";
 
 const Search = (props) => {
   return (
-    <form className="columns my-6 is-centered">
+    <form
+      className="columns my-6 is-centered"
+      onSubmit={props.handleFormSubmit}
+    >
       <div className="form-group column is-5">
         <input
           onChange={props.handleInputChange}
@@ -18,10 +21,9 @@ const Search = (props) => {
           name="searchTerm"
           type="text"
           className="form-control input"
-          placeholder="Search for an Employee by Name, Phone Number, or Email"
+          placeholder="Search Name, Phone Number, or Email"
           id="search"
         />
-
       </div>
     </form>
   );

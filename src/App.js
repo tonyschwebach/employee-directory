@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import Banner from './components/Banner/Banner';
-import EmployeeGrid from './containers/EmployeeGrid/EmployeeGrid';
+import EmployeeGrid from './containers/EmployeeDirectory/EmployeeDirectory';
 
 function App() {
   return (
