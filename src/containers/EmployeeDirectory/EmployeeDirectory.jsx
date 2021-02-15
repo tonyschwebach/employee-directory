@@ -1,7 +1,6 @@
 // onClick for table headings to setState of sortBy
 
 import React, { Component } from "react";
-import Employee from "../../components/Employee/Employee";
 import Search from "../../components/Search/Search";
 import API from "../../utils/API";
 import EmployeeGrid from "../EmployeeGrid/EmployeeGrid";
@@ -9,20 +8,20 @@ import "./EmployeeDirectory.css";
 
 class EmployeeDirectory extends Component {
   // rcc component state for list of employees, sortBy, searchTerm
-  state = { employees: [], sortBy: "", searchTerm: "" };
+  state = { employees: [], sortBy: "name-asc", searchTerm: "" };
 
   // componentDidMount renders grid
-  // componentDidMount() {
-  //   const numberOfEmployees = 20; //else .getEmployees defaults to 50
-  //   API.getEmployees(numberOfEmployees)
-  //     .then((res) => {
-  //       // set an unchanging list of employees
-  //       this.setState({ employees: res.data.results });
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }
+  componentDidMount() {
+    const numberOfEmployees = 20; //else .getEmployees defaults to 50
+    API.getEmployees(numberOfEmployees)
+      .then((res) => {
+        // set an unchanging list of employees
+        this.setState({ employees: res.data.results });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   // handle input change of search bar
   handleInputChange = (event) => {
@@ -33,10 +32,21 @@ class EmployeeDirectory extends Component {
       [name]: value,
     });
   };
+
   // handle search form submit search bar
   handleFormSubmit = (event) => {
     event.preventDefault();
   };
+
+  handleClick = (event) =>{
+    console.log("you clicked")
+    // console.log(event.target.getAttribute('sort'))
+    if (this.state.sortBy==="name-asc"){
+      this.setState({sortBy:"name-desc"})
+    } else {
+      this.setState({sortBy:"name-asc"})
+    }
+  }
 
       // Filter this.state.employees for employess without a name, email, or phone number containing the search term
   filterEmployees = () => {
@@ -72,7 +82,7 @@ class EmployeeDirectory extends Component {
           handleFormSubmit={this.handleFormSubmit}
         />
         {/* pass result of the filteredEmployees function as a prop to the employee grid component  */}
-        <EmployeeGrid employeesToDisplay={this.filterEmployees()} />
+        <EmployeeGrid employeesToDisplay={this.filterEmployees()} sortBy={this.state.sortBy} handleClick={this.handleClick} />
       </div>
     );
   }

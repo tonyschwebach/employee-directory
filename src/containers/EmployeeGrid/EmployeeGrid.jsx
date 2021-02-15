@@ -7,13 +7,15 @@ const EmployeeGrid = (props) => {
     //  {/* render table and table headings */}
     <table className="table is-striped is-narrow is-hoverable is-fullwidth">
       <thead>
-        {console.log(props)}
+
         <tr>
           <th>Picture</th>
-          <th id="name-heading">Name</th>
+          <th id="name-heading">Name  
+            <button onClick={props.handleClick} ><i data-sort ={props.sortBy} className={props.sortBy==="name-asc"? "fas fa-sort-alpha-down":"fas fa-sort-alpha-up-alt"}></i></button>
+          </th>
           <th>Phone</th>
           <th>Email</th>
-          <th id="dob-heading">DOB</th>
+          <th>DOB</th>
         </tr>
       </thead>
 
