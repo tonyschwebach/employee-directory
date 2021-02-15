@@ -17,6 +17,7 @@ class EmployeeDirectory extends Component {
       .then((res) => {
         // set an unchanging list of employees
         this.setState({ employees: res.data.results });
+        this.sortEmployees();
       })
       .catch((err) => {
         console.log(err);
@@ -38,19 +39,35 @@ class EmployeeDirectory extends Component {
     event.preventDefault();
   };
 
-  handleClick = (event) =>{
-    console.log("you clicked")
-    // console.log(event.target.getAttribute('sort'))
-    if (this.state.sortBy==="name-asc"){
-      this.setState({sortBy:"name-desc"})
+  // handle click for user choosing to sort by name
+  handleClick = (event) => {
+    if (this.state.sortBy === "name-asc") {
+      this.setState({ sortBy: "name-desc" });
     } else {
-      this.setState({sortBy:"name-asc"})
+      this.setState({ sortBy: "name-asc" });
     }
-  }
+  };
 
-      // Filter this.state.employees for employess without a name, email, or phone number containing the search term
+  // function to sort employees ascending by name
+  sortEmployees = () => {
+    const sortedEmployees = this.state.employees.sort((a, b) => {
+      let nameA = `${a.name.first.toLowerCase()}  ${a.name.last.toLowerCase()}`;
+      let nameB = `${b.name.first.toLowerCase()}  ${b.name.last.toLowerCase()}`;
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+      return 0;
+    });
+    console.log(sortedEmployees);
+    this.setState({ employees: sortedEmployees });
+  };
+
+  // Filter this.state.employees for employess without a name, email, or phone number containing the search term
   filterEmployees = () => {
-    let filteredEmployees = this.state.employees.filter((employee) => {
+    const filteredEmployees = this.state.employees.filter((employee) => {
       return (
         employee.name.first
           .toLowerCase()
@@ -72,7 +89,6 @@ class EmployeeDirectory extends Component {
     return a - b;
   };
 
-
   render() {
     return (
       <div className="container mt-6 px-6">
@@ -82,7 +98,11 @@ class EmployeeDirectory extends Component {
           handleFormSubmit={this.handleFormSubmit}
         />
         {/* pass result of the filteredEmployees function as a prop to the employee grid component  */}
-        <EmployeeGrid employeesToDisplay={this.filterEmployees()} sortBy={this.state.sortBy} handleClick={this.handleClick} />
+        <EmployeeGrid
+          employeesToDisplay={this.filterEmployees()}
+          sortBy={this.state.sortBy}
+          handleClick={this.handleClick}
+        />
       </div>
     );
   }

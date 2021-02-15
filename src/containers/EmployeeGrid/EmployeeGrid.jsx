@@ -27,7 +27,7 @@ const EmployeeGrid = (props) => {
             <Employee key={employee.id.value} {...employee} />
           ))
         ) : (
-          <tr>No employees to display</tr>
+          <tr><td>No employees to display</td></tr>
         )}
       </tbody>
     </table>
