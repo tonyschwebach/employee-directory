@@ -6,7 +6,7 @@ const EmployeeGrid = (props) => {
   return (
     //  {/* render table and table headings */}
     <table className="table is-striped is-narrow is-hoverable is-fullwidth">
-      <thead id="table-headings">
+      <thead id="table-headings" >
 
         <tr>
           <th>Picture</th>

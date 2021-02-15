@@ -9,7 +9,7 @@ const Banner = () => {
         Employee Directory
       </h1>
       <h3 className="subtitle">
-        Click on the the column headings to sort by heading or use the search box to filter your results.
+        Sort by name and/or use the search box to filter your results.
       </h3>
     </div>
   </div>
