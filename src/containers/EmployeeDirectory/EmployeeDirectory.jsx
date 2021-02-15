@@ -1,4 +1,4 @@
-// onClick for table headings to setState of sortBy
+// onClick for table headings to setState of sortOrder
 
 import React, { Component } from "react";
 import Search from "../../components/Search/Search";
@@ -7,8 +7,8 @@ import EmployeeGrid from "../EmployeeGrid/EmployeeGrid";
 import "./EmployeeDirectory.css";
 
 class EmployeeDirectory extends Component {
-  // rcc component state for list of employees, sortBy, searchTerm
-  state = { employees: [], sortBy: "name-asc", searchTerm: "" };
+  // rcc component state for list of employees, sortOrder, searchTerm
+  state = { employees: [], sortOrder: "asc", searchTerm: "" };
 
   // componentDidMount renders grid
   componentDidMount() {
@@ -41,27 +41,35 @@ class EmployeeDirectory extends Component {
 
   // handle click for user choosing to sort by name
   handleClick = (event) => {
-    if (this.state.sortBy === "name-asc") {
-      this.setState({ sortBy: "name-desc" });
+    if (this.state.sortOrder === "asc") {
+      this.setState({ sortOrder: "desc" });
     } else {
-      this.setState({ sortBy: "name-asc" });
+      this.setState({ sortOrder: "asc" });
     }
+    this.sortEmployees(this.state.sortOrder);
   };
 
-  // function to sort employees ascending by name
-  sortEmployees = () => {
+  // function to sort employees ascending by name. default ascending order
+  sortEmployees = (order = "asc") => {
     const sortedEmployees = this.state.employees.sort((a, b) => {
       let nameA = `${a.name.first.toLowerCase()}  ${a.name.last.toLowerCase()}`;
       let nameB = `${b.name.first.toLowerCase()}  ${b.name.last.toLowerCase()}`;
-      if (nameA < nameB) {
+      // sort for ascending or descending
+      if (
+        (nameA < nameB && order === "asc") ||
+        (nameA > nameB && order === "desc")
+      ) {
         return -1;
       }
-      if (nameA > nameB) {
+      if (
+        (nameA > nameB && order === "asc") ||
+        (nameA < nameB && order === "desc")
+      ) {
         return 1;
       }
       return 0;
     });
-    console.log(sortedEmployees);
+
     this.setState({ employees: sortedEmployees });
   };
 
@@ -84,7 +92,7 @@ class EmployeeDirectory extends Component {
   };
 
   // sort by name
-  /* sort asc or desc based on state.sortBy */
+  /* asc or desc based on state.sortOrder */
   compareName = (a, b) => {
     return a - b;
   };
@@ -100,7 +108,7 @@ class EmployeeDirectory extends Component {
         {/* pass result of the filteredEmployees function as a prop to the employee grid component  */}
         <EmployeeGrid
           employeesToDisplay={this.filterEmployees()}
-          sortBy={this.state.sortBy}
+          sortOrder={this.state.sortOrder}
           handleClick={this.handleClick}
         />
       </div>

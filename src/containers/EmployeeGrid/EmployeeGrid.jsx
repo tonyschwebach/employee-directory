@@ -11,7 +11,7 @@ const EmployeeGrid = (props) => {
         <tr>
           <th>Picture</th>
           <th id="name-heading">Name  
-            <button onClick={props.handleClick} ><i data-sort ={props.sortBy} className={props.sortBy==="name-asc"? "fas fa-sort-alpha-down":"fas fa-sort-alpha-up-alt"}></i></button>
+            <button onClick={props.handleClick} ><i data-order ={props.sortOrder} className={props.sortOrder==="asc"? "fas fa-sort-alpha-down":"fas fa-sort-alpha-up-alt"}></i></button>
           </th>
           <th>Phone</th>
           <th>Email</th>
