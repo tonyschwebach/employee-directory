@@ -6,12 +6,12 @@ const EmployeeGrid = (props) => {
   return (
     //  {/* render table and table headings */}
     <table className="table is-striped is-narrow is-hoverable is-fullwidth">
-      <thead>
+      <thead id="table-headings">
 
         <tr>
           <th>Picture</th>
           <th id="name-heading">Name  
-            <button onClick={props.handleClick} ><i data-order ={props.sortOrder} className={props.sortOrder==="asc"? "fas fa-sort-alpha-down":"fas fa-sort-alpha-up-alt"}></i></button>
+            <button id="sort-button" onClick={props.handleClick} ><i data-order ={props.sortOrder} className={props.sortOrder==="asc"? "fas fa-sort-alpha-down":"fas fa-sort-alpha-up-alt"}></i></button>
           </th>
           <th>Phone</th>
           <th>Email</th>

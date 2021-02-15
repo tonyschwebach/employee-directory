@@ -1,0 +1,10 @@
+#sort-button{
+  background: inherit;
+  border: 0;
+  margin-left: .5pxrem;
+  color: rgb(94, 83, 83);
+}
+
+#table-headings{
+ border: 100px;
+}

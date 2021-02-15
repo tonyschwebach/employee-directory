@@ -21,7 +21,7 @@ const Search = (props) => {
           name="searchTerm"
           type="text"
           className="form-control input"
-          placeholder="Search Name, Phone Number, or Email"
+          placeholder="Search Name, Phone#, or Email"
           id="search"
         />
       </div>

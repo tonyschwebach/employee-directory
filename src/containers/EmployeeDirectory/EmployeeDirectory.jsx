@@ -12,12 +12,12 @@ class EmployeeDirectory extends Component {
 
   // componentDidMount renders grid
   componentDidMount() {
-    const numberOfEmployees = 20; //else .getEmployees defaults to 50
+    const numberOfEmployees = 50; //else .getEmployees defaults to 50
     API.getEmployees(numberOfEmployees)
       .then((res) => {
         // set an unchanging list of employees
         this.setState({ employees: res.data.results });
-        this.sortEmployees();
+        this.sortEmployees(this.state.sortOrder);
       })
       .catch((err) => {
         console.log(err);
@@ -41,15 +41,26 @@ class EmployeeDirectory extends Component {
 
   // handle click for user choosing to sort by name
   handleClick = (event) => {
+
+    // console.log("before if block " + this.state.sortOrder);
     if (this.state.sortOrder === "asc") {
       this.setState({ sortOrder: "desc" });
-    } else {
-      this.setState({ sortOrder: "asc" });
+      // console.log("after if set state to desc " + this.state.sortOrder);
+      this.sortEmployees("desc");
     }
-    this.sortEmployees(this.state.sortOrder);
+    if (this.state.sortOrder === "desc") {
+      this.setState({ sortOrder: "asc" });
+      // console.log("after if set state to asc " + this.state.sortOrder);
+      this.sortEmployees("asc");
+    }
+
+    // console.log("after if blocks " + this.state.sortOrder);
+    // this.sortEmployees(this.state.sortOrder);
   };
 
   // function to sort employees ascending by name. default ascending order
+  // sort by name
+  /* asc or desc based on state.sortOrder */
   sortEmployees = (order = "asc") => {
     const sortedEmployees = this.state.employees.sort((a, b) => {
       let nameA = `${a.name.first.toLowerCase()}  ${a.name.last.toLowerCase()}`;
@@ -69,7 +80,7 @@ class EmployeeDirectory extends Component {
       }
       return 0;
     });
-
+    // console.log("in sort function. orderby is " + this.state.sortOrder + order);
     this.setState({ employees: sortedEmployees });
   };
 
@@ -89,12 +100,6 @@ class EmployeeDirectory extends Component {
     });
 
     return filteredEmployees;
-  };
-
-  // sort by name
-  /* asc or desc based on state.sortOrder */
-  compareName = (a, b) => {
-    return a - b;
   };
 
   render() {
