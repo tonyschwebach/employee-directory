@@ -62,7 +62,8 @@ class EmployeeDirectory extends Component {
   // sort by name
   /* asc or desc based on state.sortOrder */
   sortEmployees = (order = "asc") => {
-    const sortedEmployees = this.state.employees.sort((a, b) => {
+    let sortedEmployees = this.state.employees;
+    sortedEmployees = sortedEmployees.sort((a, b) => {
       let nameA = `${a.name.first.toLowerCase()}  ${a.name.last.toLowerCase()}`;
       let nameB = `${b.name.first.toLowerCase()}  ${b.name.last.toLowerCase()}`;
       // sort for ascending or descending
